@@ -4,74 +4,95 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="static/css/styles.css">
+  <link href="static\css\styles.css" rel="stylesheet">
+  <style>
+    .login-image {
+      max-width: 200px;
+      margin: 0 auto;
+      display: block;
+    }
+    .login-form,
+    .forgot-password-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
-<body class="bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center h-screen p-4">
-  <div class="bg-white dark:bg-zinc-700 rounded-2xl shadow-xl overflow-hidden w-full max-w-sm mx-auto">
-    <div class="flex justify-center pt-8">
-      <div class="flex space-x-2">
-        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+<body class="bg-light dark:bg-dark flex items-center justify-center h-screen p-4">
+  <div class="bg-white dark:bg-dark rounded-2xl shadow-xl overflow-hidden w-full max-w-sm mx-auto">
+    <div class="d-flex justify-content-center pt-8">
+      <div class="d-flex space-x-2">
+        <div class="w-3 h-3 rounded-full bg-danger"></div>
+        <div class="w-3 h-3 rounded-full bg-warning"></div>
+        <div class="w-3 h-3 rounded-full bg-success"></div>
       </div>
     </div>
-    <div class="px-10 py-6 text-zinc-600 dark:text-zinc-300">
+    <div class="px-4 py-4 text-dark dark:text-light">
       <h2 class="text-2xl font-bold"></h2>
-      <div class="mt-8">
-        <img src="assets\images\1.avif" alt="Illustration" class="mx-auto">
+      <div class="mt-4">
+        <img src="assets\images\1.avif" alt="Illustration" class="mx-auto d-block login-image">
       </div>
-      <h3 class="text-center text-lg font-semibold mt-10">Login as a Student</h3>
-      <form class="mt-6">
-        <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-            <i class="fas fa-envelope text-zinc-400"></i>
-          </span>
-          <input type="email" placeholder="johndoe@xyz.com"
-            class="w-full px-10 py-2 border rounded-lg text-zinc-700 focus:ring-purple-500 focus:border-purple-500" />
+      <h3 class="text-center text-lg font-semibold mt-4">Login as a Student</h3>
+      <form class="mt-4 login-form">
+        <div class="form-group">
+          <label for="emailInput">Email address</label>
+          <input type="email" class="form-control" id="emailInput" placeholder="johndoe@xyz.com">
         </div>
-        <div class="relative mt-4">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-            <i class="fas fa-lock text-zinc-400"></i>
-          </span>
-          <input type="password" id="passwordInput" placeholder="********"
-            class="w-full px-10 py-2 border rounded-lg text-zinc-700 focus:ring-purple-500 focus:border-purple-500" />
-          <button type="button" id="togglePasswordVisibility" class="absolute inset-y-0 right-0 flex items-center pr-3">
-            <i class="far fa-eye"></i>
-          </button>
+        <div class="form-group mt-2">
+          <label for="passwordInput">Password</label>
+          <div class="input-group">
+            <input type="password" id="passwordInput" class="form-control" placeholder="********">
+            <div class="input-group-append">
+              <button type="button" id="togglePasswordVisibility" class="btn btn-outline-secondary">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
         </div>
-        <button type="submit"
-          class="w-full mt-6 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none">
-          LOGIN
-        </button>
+        <button type="submit" class="btn btn-primary w-100 mt-4">LOGIN</button>
       </form>
-      <div class="mt-6 text-center">
-        <a href="#" class="text-purple-600 hover:underline">Forgot your password?</a>
-        <span class="mx-2 text-zinc-500">|</span>
-        <a href="Ad_signpu.html" class="text-purple-600 hover:underline">Need help signing in.</a>
+      <div class="mt-3 text-center">
+        <a href="#" id="forgotPasswordLink" class="text-primary">Forgot your password?</a>
+        <span class="mx-2 text-muted">|</span>
+        <a href="Ad_signpu.html" class="text-primary">Need help signing in.</a>
       </div>
-      <div class="mt-6 text-center text-zinc-500">
-        <a href="#" class="hover:underline">Terms of Use</a>
+      <div id="forgotPasswordModal" class="mt-3 text-center text-muted" style="display:none;">
+        <div class="bg-white dark:bg-dark rounded-lg p-4 forgot-password-form">
+          <h2 class="text-lg font-semibold mb-2">Forgot Password</h2>
+          <form id="forgotPasswordForm">
+            <div class="form-group">
+              <label for="email" class="mb-2">Email Address:</label>
+              <input type="email" id="email" name="email" placeholder="johndoe@example.com" required class="form-control mb-2">
+              <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </div>
+          </form>
+          <p id="forgotPasswordError" class="text-danger mt-2 d-none">Invalid email. Please try again.</p>
+          <p id="forgotPasswordSuccess" class="text-success mt-2 d-none">An email has been sent with instructions to reset your password.</p>
+          <p class="mt-3">Back to <a href="#" id="backToLogin" class="text-primary">Login</a></p>
+        </div>
+      </div>
+      <div class="mt-3 text-center text-muted">
+        <a href="#" class="text-muted">Terms of Use</a>
         <span class="mx-2">|</span>
-        <a href="#" class="hover:underline">Privacy Policy</a>
+        <a href="#" class="text-muted">Privacy Policy</a>
       </div>
     </div>
   </div>
-  <!-- Forgot Password Section -->
-  <div id="forgotPasswordModal" class="hidden fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
-    <div class="bg-white dark:bg-zinc-700 rounded-lg p-8">
-      <h2 class="text-lg font-semibold mb-4">Forgot Password</h2>
-      <form id="forgotPasswordForm">
-        <label for="email" class="block mb-2">Email Address:</label>
-        <input type="email" id="email" name="email" placeholder="johndoe@example.com" required class="w-full px-4 py-2 border rounded-lg mb-4">
-        <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">Submit</button>
-      </form>
-      <p id="forgotPasswordError" class="text-red-500 mt-2 hidden">Invalid email. Please try again.</p>
-      <p id="forgotPasswordSuccess" class="text-green-500 mt-2 hidden">An email has been sent with instructions to reset your password.</p>
-      <p class="mt-4">Back to <a href="#" id="backToLogin" class="text-purple-600 hover:underline">Login</a></p>
-    </div>
-  </div>
-<script src="static/js/script.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="static/js/script.js"></script>
+  <script>
+    document.getElementById('forgotPasswordLink').addEventListener('click', function() {
+      document.getElementById('forgotPasswordModal').style.display = 'block';
+    });
+    document.getElementById('backToLogin').addEventListener('click', function() {
+      document.getElementById('forgotPasswordModal').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
