@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Platform</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="static\css\home.css" rel="stylesheet">
+</head>
+<body>
+    <div class="header-bar">
+        <div class="logo-section">
+            <a href="Ad_home.html" class="logo"><img src="assets\images\Logo1.jpg" alt="Logo"></a>
+        </div>
+        <div class="search-bar">
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="profile-section">
+            <button class="btn btn-light" id="profile-btn"><i class="fas fa-user"></i></button>
+            <span class="profile-name">Username</span>
+            <button class="btn btn-light ml-2" id="bell-btn"><i class="fas fa-bell"></i></button>
+        </div>
+    </div>    
+  <div class="sticky-menu">
+    <ul>
+      <li><a href="#" id="home-link"><i class="fas fa-home menu-icon"></i>Home</a></li>
+      <li>
+        <a href="#" data-toggle="collapse" data-target="#usersMenu" aria-expanded="false" aria-controls="usersMenu">
+          <i class="fas fa-users menu-icon"></i>Users <i class="fas fa-caret-down ml-auto"></i>
+        </a>
+        <ul class="collapse" id="usersMenu">
+          <li><a href="#"><i class="fas fa-user-plus menu-icon"></i>New User</a></li>
+          <li><a href="#"><i class="fas fa-user-cog menu-icon"></i>Manage Users</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" data-toggle="collapse" data-target="#testsMenu" aria-expanded="false" aria-controls="testsMenu">
+          <i class="fas fa-file-alt menu-icon"></i>Tests <i class="fas fa-caret-down ml-auto"></i>
+        </a>
+        <ul class="collapse" id="testsMenu">
+          <li><a href="#"><i class="fas fa-plus-circle menu-icon"></i>New Test</a></li>
+          <li><a href="#"><i class="fas fa-tasks menu-icon"></i>Manage Tests</a></li>
+          <li><a href="#"><i class="fas fa-list menu-icon"></i>Question Pools</a></li>
+          <li><a href="#"><i class="fas fa-chart-bar menu-icon"></i>Grading Scales</a></li>
+        </ul>
+      </li>
+      <li><a href="#"><i class="fas fa-chart-pie menu-icon"></i>Submissions</a></li>
+      <li><a href="#"><i class="fas fa-tachometer-alt menu-icon"></i>Dashboard</a></li>
+      <li><a href="#"><i class="fas fa-poll menu-icon"></i>Surveys</a></li>
+      <li><a href="adm_login.html"><i class="fas fa-sign-out-alt menu-icon"></i>Sign-out</a></li>
+    </ul>
+  </div>
+  <!-- Your content goes here -->
+  <div class="container">
+    <div class="welcome-section">
+      <h1>Welcome <span id="username">[Name]</span></h1>
+      <h3>Your role is Administrator</h3>
+      <p>You have all permissions in the system and can fully access and manage all application modules.</p>
+    </div>
+    <div class="feature-container">
+      <div class="feature-card" id="home-section">
+        <img src="assets/images/feature1.jpg" alt="Feature 1 Image" width="150">
+        <h3>Feature 1</h3>
+        <p>Description of Feature 1</p>
+        <button class="btn btn-primary">Select</button>
+      </div>
+      <div class="feature-card" id="users-section" style="display:none;">
+        <img src="assets/images/feature2.jpg" alt="Feature 2 Image" width="150">
+        <h3>Feature 2</h3>
+        <p>Description of Feature 2</p>
+        <button class="btn btn-primary">Select</button>
+      </div>
+      <!-- Add more feature cards as needed -->
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+      // Replace [Name] with the actual username
+      $('#username').text('John Doe');
+
+      // Add click event for Select buttons
+      $('.btn-primary').click(function() {
+        // Add your functionality here when a feature is selected
+        alert('Feature selected!');
+      });
+
+      // Add click event for menu links
+      $('#home-link').click(function(event) {
+        event.preventDefault();
+        $('.feature-container > div').hide();
+        $('#home-section').show();
+      });
+
+      $('#users-link').click(function(event) {
+        event.preventDefault();
+        $('.feature-container > div').hide();
+        $('#users-section').show();
+      });
+
+      // Add more click events for other menu links here
+    });
+  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

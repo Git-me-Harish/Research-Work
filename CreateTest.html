@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Test Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="#" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-image: linear-gradient(135deg, #FAB2FF 10%, #1904E5 100%);
+    }
+    .form-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .history-table {
+      background-color: rgb(255, 255, 255);
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      overflow-x: auto; /* Horizontal scroll for small screens */
+    }
+    .history-table th, .history-table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .pagination-btn {
+      margin: 0 5px;
+    }
+    .navbar-custom {
+        background-image: linear-gradient(135deg, #9e4ab3 10%, #0c0332 100%);
+    }
+    
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <a class="navbar-brand" href="Ad_home.html">
+            <img src="assets\images\Logo1.jpg" alt="Your Test Platform Logo" width="auto" height="30">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Add your navigation links here -->    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="Ad_home.html">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Create Test</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Live Tests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Results</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 form-container">
+        <h2 class="text-center mb-4">Create New Test</h2>
+        <form>
+          <div class="form-group">
+            <label for="testTitle">Title of the Test</label>
+            <input type="text" class="form-control" id="testTitle" placeholder="Enter test title" required>
+          </div>
+          <div class="form-group">
+            <label for="testDescription">Description or Instructions</label>
+            <textarea class="form-control" id="testDescription" rows="5" placeholder="Enter test instructions" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="testSubject">Subject or Topic</label>
+              <input type="text" class="form-control" id="testSubject" placeholder="Enter test subject/topic" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="testDuration">Duration (in minutes)</label>
+              <input type="number" class="form-control" id="testDuration" placeholder="Enter test duration" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="testStartDate">Start Date</label>
+              <input type="date" class="form-control" id="testStartDate" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="testEndDate">End Date</label>
+              <input type="date" class="form-control" id="testEndDate" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="testStartTime">Start Time</label>
+              <input type="time" class="form-control" id="testStartTime" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="testEndTime">End Time</label>
+              <input type="time" class="form-control" id="testEndTime" required>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Create Test</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <body>
+    <form>
+        <!-- Test creation form code here -->
+    </form>
+</div>
+<div class="history-table">
+  <h2 class="text-center mb-4">Test History</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Duration</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Sample rows, replace with dynamic data -->
+      <tr>
+        <td>Sample Test 1</td>
+        <td>Mathematics</td>
+        <td>60 minutes</td>
+        <td>2024-04-20 10:00 AM</td>
+        <td>2024-04-20 11:00 AM</td>
+      </tr>
+      <tr>
+        <td>Sample Test 2</td>
+        <td>Science</td>
+        <td>45 minutes</td>
+        <td>2024-04-21 09:00 AM</td>
+        <td>2024-04-21 09:45 AM</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+<!-- Pagination -->
+<div class="pagination-container">
+  <button class="btn btn-primary pagination-btn">Previous</button>
+  <button class="btn btn-primary pagination-btn">1</button>
+  <button class="btn btn-primary pagination-btn">2</button>
+  <button class="btn btn-primary pagination-btn">3</button>
+  <!-- Add more pagination buttons as needed -->
+  <button class="btn btn-primary pagination-btn">Next</button>
+</div>
+</div>
+</div>
+</div>
+
+              
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="static\js\script.js"></script>
+  
+</body>
+</html>
+  

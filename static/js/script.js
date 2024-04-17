@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Hide forgot password modal and reset input and messages
+
   function hideForgotPasswordModal() {
     forgotPasswordModal.classList.add('hidden');
     forgotPasswordModal.classList.remove('flex');
@@ -72,3 +73,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// User Profile Navigation
+$(document).ready(function() {
+  // Handle click event for logo
+  $('.logo').click(function() {
+      window.location.href = 'Ad_home.html'; // Redirect to home page
+  });
+
+  // Handle click event for profile button
+  $('.profile-section .btn-light').click(function() {
+      window.location.href = 'profile.html'; // Redirect to profile page
+  });
+});
