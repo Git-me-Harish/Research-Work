@@ -73,19 +73,18 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// User Profile Navigation
-$(document).ready(function() {
-  // Handle click event for logo
-  $('.logo').click(function() {
-      window.location.href = 'Ad_home.html'; // Redirect to home page
-  });
+// // User Profile Navigation
+// $(document).ready(function() {
+//   // Handle click event for logo
+//   $('.logo').click(function() {
+//       window.location.href = 'Ad_home.html'; // Redirect to home page
+//   });
 
-  // Handle click event for profile button
-  $('.profile-section .btn-light').click(function() {
-      window.location.href = 'profile.html'; // Redirect to profile page
-  });
-});
-
+//   // Handle click event for profile button
+//   $('.profile-section .btn-light').click(function() {
+//       window.location.href = 'profile.html'; // Redirect to profile page
+//   });
+// });
 
 // START OF THIS IS THE LOGIC FOR THE MULTIPLE CONTENT ACCESSING FROM THE SINGLE MENU BAR ALONE 
 $(document).ready(function() {
@@ -246,6 +245,39 @@ $(document).ready(function() {
     }
   });
 });
+
 // End of Form Validation.
+
+// START OF USER PROFILE SLIDING RESPONSE & Start of Dark/Light Mode Toggle
+
+$(document).ready(function() {
+  $('#profile-btn').click(function(e) {
+    e.stopPropagation(); // Prevent the default behavior of the button
+    $('.user-profile').toggleClass('active');
+  });
+
+  $('#close-profile').click(function() {
+    $('.user-profile').removeClass('active');
+  });
+
+  $(document).click(function(e) {
+    if (!$(e.target).closest('.user-profile').length && !$(e.target).closest('#profile-btn').length) {
+      $('.user-profile').removeClass('active');
+    }
+  });
+
+  // Dark Mode Toggle
+  $('#dark-mode-switch').change(function() {
+    $('.user-profile').toggleClass('dark-mode');
+  });
+});
+
+// END OF USER PROFILE SLIDING RESPONSE 
+
+
+
+
+
+
 
 
