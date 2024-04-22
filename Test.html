@@ -6,108 +6,629 @@
   <title>Test Platform</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link href="static\css\home.css" rel="stylesheet">
+  <!--Word Cloud packages-->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud/2.36.1/wordcloud.min.js"></script>
+
+  <style>
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5.5px;
+      background-color: #9456d1; /* Optional: Add a background color */
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .sticky-menu {
+      width: 250px; /* Adjust the width as needed */
+      float: left;
+      position: fixed;
+      top: 60px; /* Adjust based on your header height */
+      bottom: 0;
+      overflow-y: auto; /* Enable vertical scrolling if needed */
+      background-color: #a586df; /* Optional: Add a background color */
+    }
+
+    .content-container {
+      margin-left: 270px; /* Adjust the margin to account for the menu width */
+      padding-top: 70px; /* Adjust based on your header height */
+    }
+
+    .content-section {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="header-bar">
-        <div class="logo-section">
-            <a href="Ad_home.html" class="logo"><img src="assets\images\Logo1.jpg" alt="Logo"></a>
-        </div>
-        <div class="search-bar">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="profile-section">
-            <button class="btn btn-light" id="profile-btn"><i class="fas fa-user"></i></button>
-            <span class="profile-name">Username</span>
-            <button class="btn btn-light ml-2" id="bell-btn"><i class="fas fa-bell"></i></button>
-        </div>
-    </div>    
-  <div class="sticky-menu">
-    <ul>
-      <li><a href="#" id="home-link"><i class="fas fa-home menu-icon"></i>Home</a></li>
-      <li>
-        <a href="#" data-toggle="collapse" data-target="#usersMenu" aria-expanded="false" aria-controls="usersMenu">
-          <i class="fas fa-users menu-icon"></i>Users <i class="fas fa-caret-down ml-auto"></i>
-        </a>
-        <ul class="collapse" id="usersMenu">
-          <li><a href="#"><i class="fas fa-user-plus menu-icon"></i>New User</a></li>
-          <li><a href="#"><i class="fas fa-user-cog menu-icon"></i>Manage Users</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#" data-toggle="collapse" data-target="#testsMenu" aria-expanded="false" aria-controls="testsMenu">
-          <i class="fas fa-file-alt menu-icon"></i>Tests <i class="fas fa-caret-down ml-auto"></i>
-        </a>
-        <ul class="collapse" id="testsMenu">
-          <li><a href="#"><i class="fas fa-plus-circle menu-icon"></i>New Test</a></li>
-          <li><a href="#"><i class="fas fa-tasks menu-icon"></i>Manage Tests</a></li>
-          <li><a href="#"><i class="fas fa-list menu-icon"></i>Question Pools</a></li>
-          <li><a href="#"><i class="fas fa-chart-bar menu-icon"></i>Grading Scales</a></li>
-        </ul>
-      </li>
-      <li><a href="#"><i class="fas fa-chart-pie menu-icon"></i>Submissions</a></li>
-      <li><a href="#"><i class="fas fa-tachometer-alt menu-icon"></i>Dashboard</a></li>
-      <li><a href="#"><i class="fas fa-poll menu-icon"></i>Surveys</a></li>
-      <li><a href="adm_login.html"><i class="fas fa-sign-out-alt menu-icon"></i>Sign-out</a></li>
-    </ul>
+  <!-- FIXED HEADER SECTION -->
+  <div class="header-bar">
+    <div class="logo-section">
+      <a href="Ad_home.html" class="logo"><img src="assets\images\Logo1.jpg" alt="Logo"></a>
+    </div>
+    <div class="search-bar">
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="profile-section">
+      <button class="btn btn-light" id="profile-btn"><i class="fas fa-user"></i></button>
+      <span class="profile-name">Harish</span>
+      <button class="btn btn-light ml-2" id="bell-btn"><i class="fas fa-bell"></i></button>
+    </div>
   </div>
-  <!-- Your content goes here -->
-  <div class="container">
-    <div class="welcome-section">
+  <!-- STICKY MENU BAR  -->
+  <div class="sticky-menu">
+      <ul>
+        <li><a href="#" id="home-link"><i class="fas fa-home menu-icon"></i>Home</a></li>
+        <li>
+          <a href="#" data-toggle="collapse" data-target="#usersMenu" aria-expanded="false" aria-controls="usersMenu">
+            <i class="fas fa-users menu-icon"></i>Users <i class="fas fa-caret-down ml-auto"></i>
+          </a>
+          <ul class="collapse" id="usersMenu">
+            <li><a href="#" id="new-user-link"><i class="fas fa-user-plus menu-icon"></i>New User</a></li>
+            <li><a href="#" id="manage-users-link"><i class="fas fa-user-cog menu-icon"></i>Manage Users</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" data-toggle="collapse" data-target="#testsMenu" aria-expanded="false" aria-controls="testsMenu">
+            <i class="fas fa-file-alt menu-icon"></i>Tests <i class="fas fa-caret-down ml-auto"></i>
+          </a>
+          <ul class="collapse" id="testsMenu">
+            <li><a href="#"><i class="fas fa-plus-circle menu-icon"></i>New Test</a></li>
+            <li><a href="#"><i class="fas fa-tasks menu-icon"></i>Manage Tests</a></li>
+            <li><a href="#"><i class="fas fa-list menu-icon"></i>Question Pools</a></li>
+            <li><a href="#"><i class="fas fa-balance-scale menu-icon"></i>Grading Scales</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="fas fa-chart-pie menu-icon"></i>Submissions</a></li>
+        <li><a href="#"><i class="fas fa-tachometer-alt menu-icon"></i>Dashboard</a></li>
+        <li><a href="#"><i class="fas fa-poll menu-icon"></i>Surveys</a></li>
+        <li><a href="adm_login.html"><i class="fas fa-sign-out-alt menu-icon"></i>Sign-out</a></li>
+      </ul>
+    </div>
+  <!-- Main content area -->
+  <div class="content-container">
+
+    <!-- ALL THE CONTENTS HERE -->
+    <!--Start of HOME SECTION-->
+    <div class="content-section" id="home-section">
       <h1>Welcome <span id="username">[Name]</span></h1>
       <h3>Your role is Administrator</h3>
       <p>You have all permissions in the system and can fully access and manage all application modules.</p>
-    </div>
-    <div class="feature-container">
-      <div class="feature-card" id="home-section">
-        <img src="assets/images/feature1.jpg" alt="Feature 1 Image" width="150">
-        <h3>Feature 1</h3>
-        <p>Description of Feature 1</p>
-        <button class="btn btn-primary">Select</button>
+      <p>Welcome to our educational platform dedicated to online testing! Our platform is designed to help administrators like you streamline the testing process and reduce student procrastination.</p>
+      <p>As an administrator, you play a crucial role in creating and managing tests, ensuring a smooth testing experience for students.</p>
+      
+      <h3>Key Features:</h3>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="assets\images\UI.avif" class="card-img-top" alt="Feature 1">
+            <div class="card-body">
+              <h5 class="card-title">User-friendly interface</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Add more cards for other features -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="assets\images\grading.jpg" class="card-img-top" alt="Feature 2">
+            <div class="card-body">
+              <h5 class="card-title">Automated grading system</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="assets\images\test.jpg" class="card-img-top" alt="Feature 3">
+            <div class="card-body">
+              <h5 class="card-title">Customizable test settings</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="feature-card" id="users-section" style="display:none;">
-        <img src="assets/images/feature2.jpg" alt="Feature 2 Image" width="150">
-        <h3>Feature 2</h3>
-        <p>Description of Feature 2</p>
-        <button class="btn btn-primary">Select</button>
-      </div>
-      <!-- Add more feature cards as needed -->
+      <!-- Add more cards for other features -->
+      <h3>Benefits for Students:</h3>
+      <ul>
+        <li>Streamlined test-taking experience to reduce stress and improve focus.</li>
+        <li>Instant feedback on performance to facilitate learning and improvement.</li>
+        <li>Opportunities to practice and enhance skills through interactive tests.</li>
+        <li>Access to a wide range of educational resources to support learning.</li>
+        <li>Motivating features to increase student engagement during tests.</li>
+      </ul>
+      
+      <a href="#" class="btn btn-primary">Get Started</a>
     </div>
+    <!--End of HOME SECTION-->
+
+    <!-- START OF USERS / MANAGE USERS / NEW USER SECTION -->
+
+    <div class="content-section" id="new-user-content" style="display:none;">
+      <h1>New User Section</h1>
+      <p>Welcome to the new user registration section. Here, administrators can add new users to the platform with various features and functionalities.</p>
+
+      <!-- User Registration Form -->
+      <form id="user-registration-form">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter password">
+        </div>
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <select class="form-control" id="role">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+        <!-- Additional Profile Information (if required) -->
+        <!-- Profile Picture Upload -->
+        <div class="form-group">
+          <label for="profile-pic">Profile Picture:</label>
+          <input type="file" class="form-control-file" id="profile-pic">
+        </div>
+        <!-- Email Verification -->
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="email-verification">
+          <label class="form-check-label" for="email-verification">Verify Email</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    
+      <!-- User Management Options -->
+      <div class="user-management-options">
+        <h3>User Management Options</h3>
+        <button class="btn btn-success" id="activate-user">Activate User</button>
+        <button class="btn btn-warning" id="deactivate-user">Deactivate User</button>
+        <button class="btn btn-danger" id="delete-user">Delete User</button>
+      </div>
+    
+      <!-- Notifications -->
+      <div class="notifications">
+        <h3>Notifications</h3>
+        <!-- Display notifications here -->
+        <p>No new notifications.</p>
+      </div>
+    
+      <!-- User Groups or Categories -->
+      <div class="user-groups">
+        <h3>User Groups</h3>
+        <ul>
+          <li>Group A: Students</li>
+          <li>Group B: Teachers</li>
+          <li>Group C: Administrators</li>
+        </ul>
+      </div>
+    
+      <!-- Access Controls -->
+      <div class="access-controls">
+        <h3>Access Controls</h3>
+        <p>Admins have full access to all features.</p>
+        <p>Teachers have access to test creation and management.</p>
+        <p>Students have access to taking tests and viewing results.</p>
+      </div>
+    
+      <!-- User Onboarding Resources -->
+      <div class="onboarding-resources">
+        <h3>User Onboarding Resources</h3>
+        <p>Check out our user guide for detailed instructions on using the platform.</p>
+        <a href="user_guide.pdf" target="_blank" class="btn btn-info">User Guide</a>
+      </div>
+    
+      <!-- Error Handling and Validation -->
+      <div class="error-handling">
+        <h3>Error Handling and Validation</h3>
+        <!-- Display error messages here if any -->
+        <p>No errors detected.</p>
+      </div>
+    
+      <!-- User Agreement and Policies -->
+      <div class="user-agreement">
+        <h3>User Agreement and Policies</h3>
+        <p>Please review and agree to our terms of service and privacy policy.</p>
+        <a href="terms_of_service.pdf" target="_blank">Terms of Service</a>
+        <a href="privacy_policy.pdf" target="_blank">Privacy Policy</a>
+      </div>
+    
+      <!-- Feedback Mechanism -->
+      <div class="feedback-mechanism">
+        <h3>Feedback Mechanism</h3>
+        <p>We value your feedback! Please let us know if you encounter any issues or have suggestions for improvement.</p>
+        <textarea class="form-control" id="feedback-text" rows="3" placeholder="Enter your feedback"></textarea>
+        <button class="btn btn-secondary mt-2" id="submit-feedback">Submit Feedback</button>
+      </div>
+    </div>
+    <!-- END OF USERS / MANAGE USERS / NEW USER SECTION -->
+
+    <!-- START OF USERS / NEW USER SECTION -->
+    
+    <div class="content-section" id="manage-users-content" style="display:none;">
+      <h1>Manage Users Section</h1>
+    
+      <!-- User List Display -->
+      <div class="user-list">
+        <h2>User List</h2>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Sample User Data -->
+              <tr>
+                <td>JohnDoe</td>
+                <td>johndoe@example.com</td>
+                <td>Admin</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td>
+                  <button class="btn btn-primary btn-sm">View/Edit</button>
+                  <button class="btn btn-danger btn-sm">Deactivate</button>
+                  <button class="btn btn-info btn-sm">Reset Password</button>
+                </td>
+              </tr>
+              <!-- More user rows here -->
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </div>
+    
+      <!-- Search and Filter Options -->
+      <div class="search-filter">
+        <h2>Search and Filter</h2>
+        <form class="form-inline">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="searchInput" class="sr-only">Search</label>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search by Username or Email">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Search</button>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="roleSelect" class="sr-only">Role</label>
+            <select class="form-control" id="roleSelect">
+              <option selected disabled>Select Role</option>
+              <option value="admin">Admin</option>
+              <option value="teacher">Teacher</option>
+              <option value="student">Student</option>
+            </select>
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="statusSelect" class="sr-only">Status</label>
+            <select class="form-control" id="statusSelect">
+              <option selected disabled>Select Status</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Filter</button>
+        </form>
+      </div>
+    
+      <!-- User Details View/Edit -->
+      <div class="user-details">
+        <h2>User Details</h2>
+        <div class="card">
+          <div class="card-body">
+            <!-- Sample User Details Form -->
+            <form>
+              <div class="form-group">
+                <label for="usernameInput">Username</label>
+                <input type="text" class="form-control" id="usernameInput" value="JohnDoe" disabled>
+              </div>
+              <div class="form-group">
+                <label for="emailInput">Email address</label>
+                <input type="email" class="form-control" id="emailInput" value="johndoe@example.com" disabled>
+              </div>
+              <div class="form-group">
+                <label for="roleSelect">Role</label>
+                <select class="form-control" id="roleSelect">
+                  <option value="admin">Admin</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="student">Student</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="statusSelect">Status</label>
+                <select class="form-control" id="statusSelect">
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+      <!-- User Status Management -->
+      <div class="user-status">
+        <h2>User Status Management</h2>
+        <div class="card">
+          <div class="card-body">
+            <!-- Sample User Status Form -->
+            <form>
+              <div class="form-group">
+                <label for="statusSelect">Select Status</label>
+                <select class="form-control" id="statusSelect">
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Role Assignment and Permissions -->
+      <div class="role-assignment">
+        <h2>Role Assignment and Permissions</h2>
+        <div class="card">
+          <div class="card-body">
+            <!-- Sample Role Assignment Form -->
+            <form>
+              <div class="form-group">
+                <label for="roleSelect">Select Role</label>
+                <select class="form-control" id="roleSelect">
+                  <option value="admin">Admin</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="student">Student</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Assign Role</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Bulk Actions -->
+      <div class="bulk-actions">
+        <h2>Bulk Actions</h2>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-danger">Deactivate Selected</button>
+          <button type="button" class="btn btn-warning">Activate Selected</button>
+          <button type="button" class="btn btn-info">Delete Selected</button>
+        </div>
+      </div>
+    
+      <!-- User Profile Picture Management -->
+      <div class="profile-picture">
+        <h2>User Profile Picture Management</h2>
+        <div class="card">
+          <div class="card-body">
+            <!-- Sample Profile Picture Upload Form -->
+            <form>
+              <div class="form-group">
+                <label for="profilePicture">Upload Profile Picture</label>
+                <input type="file" class="form-control-file" id="profilePicture">
+              </div>
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+      <!-- User Activity Log -->
+      <div class="activity-log">
+        <h2>User Activity Log</h2>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Date/Time</th>
+                <th>Action</th>
+                <th>User</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Sample Activity Log Data -->
+              <tr>
+                <td>2024-04-22 10:00 AM</td>
+                <td>Login</td>
+                <td>JohnDoe</td>
+              </tr>
+              <!-- More activity log rows here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+      <!-- Notifications and Alerts -->
+      <div class="notifications">
+        <h2>Notifications and Alerts</h2>
+        <div class="alert alert-info" role="alert">
+          New user account activated.
+        </div>
+        <!-- Add more alerts for different events -->
+      </div>
+    
+      <!-- Error Handling and Validation -->
+      <div class="error-handling">
+        <h2>Error Handling and Validation</h2>
+        <!-- Sample Error Message Display -->
+        <div class="alert alert-danger" role="alert">
+          Error: Duplicate username. Please choose a different username.
+        </div>
+        <!-- Add more error messages as needed -->
+      </div>
+    
+      <!-- Export User Data -->
+      <div class="export-data">
+        <h2>Export User Data</h2>
+        <a href="#" class="btn btn-primary">Export CSV</a>
+        <a href="#" class="btn btn-success">Export Excel</a>
+      </div>
+    
+      <!-- User Support and Help Resources -->
+      <div class="help-resources">
+        <h2>User Support and Help Resources</h2>
+        <p>For assistance, please refer to the help documentation or contact support.</p>
+        <a href="#" class="btn btn-info">Help Documentation</a>
+        <a href="#" class="btn btn-warning">Contact Support</a>
+      </div>    
+    </div>
+    <!-- END OF USERS / NEW USER SECTION -->
+
+    <!--START OF TEST SECTION / NEW TEST -->
+    <div class="content-section" id="new-test-content" style="display:none;">
+      <div class="container">
+        <h1>Create New Test</h1>
+        <form id="newTestForm">
+          <!-- Test Information Form Fields -->
+          <div class="form-group">
+            <label for="testName">Test Name:</label>
+            <input type="text" class="form-control" id="testName" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="duration">Duration (minutes):</label>
+            <input type="number" class="form-control" id="duration" min="1" required>
+          </div>
+          <div class="form-group">
+            <label for="passingScore">Passing Score (%):</label>
+            <input type="number" class="form-control" id="passingScore" min="1" max="100" required>
+          </div>
+          <div class="form-group">
+            <label for="visibility">Visibility:</label>
+            <select class="form-control" id="visibility">
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+    
+          <!-- Question Bank Integration -->
+          <div class="form-group">
+            <label for="questionBank">Select Questions:</label>
+            <select multiple class="form-control" id="questionBank">
+              <!-- Options populated from question bank -->
+              <option value="1">Question 1</option>
+              <option value="2">Question 2</option>
+              <!-- Add more options as needed -->
+            </select>
+          </div>
+    
+          <!-- Question Types -->
+          <div class="form-group">
+            <label for="questionType">Question Type:</label>
+            <select class="form-control" id="questionType">
+              <option value="multiple-choice">Multiple Choice</option>
+              <option value="fill-in-the-blank">Fill in the Blank</option>
+              <option value="true-false">True/False</option>
+              <!-- Add more question types -->
+            </select>
+          </div>
+    
+          <!-- Test Settings -->
+          <div class="form-group">
+            <label for="settings">Test Settings:</label>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="shuffleQuestions">
+              <label class="form-check-label" for="shuffleQuestions">Shuffle Questions</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="allowBacktracking">
+              <label class="form-check-label" for="allowBacktracking">Allow Backtracking</label>
+            </div>
+          </div>
+    
+          <!-- Test Preview -->
+          <button type="button" class="btn btn-primary" id="previewButton">Preview Test</button>
+    
+          <!-- Save and Draft -->
+          <button type="submit" class="btn btn-success">Save as Draft</button>
+    
+          <!-- Test Instructions -->
+          <div class="form-group">
+            <label for="instructions">Test Instructions:</label>
+            <textarea class="form-control" id="instructions" rows="3"></textarea>
+          </div>
+    
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary">Publish Test</button>
+        </form>
+      </div>
+    </div>
+    
+    <!--END OF TEST SECTION / NEW TEST --> 
+    <div class="content-section" id="new-test-content" style="display:none;">
+  <h1>New Test Section</h1>
+  <p>This is the content for the New Test section.</p>
+</div>
+
+<div class="content-section" id="manage-tests-content" style="display:none;">
+  <h1>Manage Tests Section</h1>
+  <p>This is the content for the Manage Tests section.</p>
+</div>
+
+<div class="content-section" id="question-pools-content" style="display:none;">
+  <h1>Question Pools Section</h1>
+  <p>This is the content for the Question Pools section.</p>
+</div>
+
+<div class="content-section" id="grading-scales-content" style="display:none;">
+  <h1>Grading Scales Section</h1>
+  <p>This is the content for the Grading Scales section.</p>
+</div>
+
+<div class="content-section" id="submissions-content" style="display:none;">
+  <h1>Submissions Section</h1>
+  <p>This is the content for the Submissions section.</p>
+</div>
+
+<div class="content-section" id="dashboard-content" style="display:none;">
+  <h1>Dashboard Section</h1>
+  <p>This is the content for the Dashboard section.</p>
+</div>
+
+<div class="content-section" id="surveys-content" style="display:none;">
+  <h1>Surveys Section</h1>
+  <p>This is the content for the Surveys section.</p>
+</div>
+
+<div class="content-section" id="sign-out-content" style="display:none;">
+  <h1>Sign-out Section</h1>
+  <p>This is the content for the Sign-out section.</p>
+</div>
+
+    
+    <!-- Other content sections as needed -->
+  </div>    
+    <!-- Add more content sections as needed -->
   </div>
-  <script>
-    $(document).ready(function() {
-      // Replace [Name] with the actual username
-      $('#username').text('John Doe');
-
-      // Add click event for Select buttons
-      $('.btn-primary').click(function() {
-        // Add your functionality here when a feature is selected
-        alert('Feature selected!');
-      });
-
-      // Add click event for menu links
-      $('#home-link').click(function(event) {
-        event.preventDefault();
-        $('.feature-container > div').hide();
-        $('#home-section').show();
-      });
-
-      $('#users-link').click(function(event) {
-        event.preventDefault();
-        $('.feature-container > div').hide();
-        $('#users-section').show();
-      });
-
-      // Add more click events for other menu links here
-    });
-  </script>
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS and custom script -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="static\js\script.js"></script>
 </body>
 </html>

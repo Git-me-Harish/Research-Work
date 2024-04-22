@@ -32,9 +32,11 @@ elit
 Excepteur
 excert
 feedeback
+figsize
 firstname
 fullwidth
 genric
+imshow
 incidid
 incididunt
 ionicon
@@ -57,3 +59,4 @@ tempor
 testi
 Tetur
 umod
+wordcloud

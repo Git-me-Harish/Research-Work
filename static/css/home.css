@@ -61,5 +61,49 @@
     .header-bar .form-inline {
       margin-bottom: 0;
     }
+
+    /***** STYLES FOR THE TEST.HTML PAGE FOR THE USER SECTION*****
+      /* Styles for the New User Section */
+      .content-section#new-user-content {
+        background-color: #f8f9fa; /* Light gray background */
+        border-radius: 10px; /* Rounded corners */
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+        margin-bottom: 20px; /* Add some space below the section */
+      }
+    
+      /* Form styles */
+      #user-registration-form {
+        margin-bottom: 20px; /* Add space below the form */
+      }
+    
+      /* User Management Options buttons */
+      .user-management-options button {
+        margin-right: 10px; /* Add spacing between buttons */
+      }
+    
+      /* Notifications and Error Handling styles */
+      .notifications, .error-handling {
+        margin-bottom: 20px; /* Add space below these sections */
+      }
+      .notifications p, .error-handling p {
+        font-style: italic; /* Italicize notification messages */
+      }
+    
+      /* User Agreement and Policies links */
+      .user-agreement a {
+        display: block; /* Display links as blocks for better readability */
+        margin-top: 5px; /* Add space between links */
+      }
+    
+      /* Feedback Mechanism styles */
+      .feedback-mechanism textarea {
+        resize: vertical; /* Allow vertical resizing of the textarea */
+      }
+    
+      /* Hover effect for Submit Feedback button */
+      .feedback-mechanism #submit-feedback:hover {
+        background-color: #28a745; /* Green background on hover */
+      }
     
     
