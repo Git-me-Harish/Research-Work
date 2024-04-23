@@ -137,7 +137,7 @@
     <!--Start of HOME SECTION-->
     <div class="content-section" id="home-section">
       <h1>Welcome <span id="username">[Name]</span></h1>
-      <h3>Your role is Administrator</h3>
+      <h3>Your role is <a href="#" class="role-link">Administrator</a></h3>
       <p>You have all permissions in the system and can fully access and manage all application modules.</p>
       <p>Welcome to our educational platform dedicated to online testing! Our platform is designed to help administrators like you streamline the testing process and reduce student procrastination.</p>
       <p>As an administrator, you play a crucial role in creating and managing tests, ensuring a smooth testing experience for students.</p>
@@ -534,137 +534,13 @@
     </div>
     <!-- END OF USERS / NEW USER SECTION -->
 
-    <!--START OF TEST SECTION / NEW TEST -->
-    <div class="content-section" id="new-test-content" style="display:none;">
-      <div class="container">
-        <h1>Create New Test</h1>
-        <form id="newTestForm">
-          <!-- Test Information Form Fields -->
-          <div class="form-group">
-            <label for="testName">Test Name:</label>
-            <input type="text" class="form-control" id="testName" required>
-          </div>
-          <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="duration">Duration (minutes):</label>
-            <input type="number" class="form-control" id="duration" min="1" required>
-          </div>
-          <div class="form-group">
-            <label for="passingScore">Passing Score (%):</label>
-            <input type="number" class="form-control" id="passingScore" min="1" max="100" required>
-          </div>
-          <div class="form-group">
-            <label for="visibility">Visibility:</label>
-            <select class="form-control" id="visibility">
-              <option value="public">Public</option>
-              <option value="private">Private</option>
-            </select>
-          </div>
-    
-          <!-- Question Bank Integration -->
-          <div class="form-group">
-            <label for="questionBank">Select Questions:</label>
-            <select multiple class="form-control" id="questionBank">
-              <!-- Options populated from question bank -->
-              <option value="1">Question 1</option>
-              <option value="2">Question 2</option>
-              <!-- Add more options as needed -->
-            </select>
-          </div>
-    
-          <!-- Question Types -->
-          <div class="form-group">
-            <label for="questionType">Question Type:</label>
-            <select class="form-control" id="questionType">
-              <option value="multiple-choice">Multiple Choice</option>
-              <option value="fill-in-the-blank">Fill in the Blank</option>
-              <option value="true-false">True/False</option>
-              <!-- Add more question types -->
-            </select>
-          </div>
-    
-          <!-- Test Settings -->
-          <div class="form-group">
-            <label for="settings">Test Settings:</label>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="shuffleQuestions">
-              <label class="form-check-label" for="shuffleQuestions">Shuffle Questions</label>
-            </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="allowBacktracking">
-              <label class="form-check-label" for="allowBacktracking">Allow Backtracking</label>
-            </div>
-          </div>
-    
-          <!-- Test Preview -->
-          <button type="button" class="btn btn-primary" id="previewButton">Preview Test</button>
-    
-          <!-- Save and Draft -->
-          <button type="submit" class="btn btn-success">Save as Draft</button>
-    
-          <!-- Test Instructions -->
-          <div class="form-group">
-            <label for="instructions">Test Instructions:</label>
-            <textarea class="form-control" id="instructions" rows="3"></textarea>
-          </div>
-    
-          <!-- Submit Button -->
-          <button type="submit" class="btn btn-primary">Publish Test</button>
-        </form>
-      </div>
-    </div>
-    
-    <!--END OF TEST SECTION / NEW TEST --> 
-    <div class="content-section" id="new-test-content" style="display:none;">
-  <h1>New Test Section</h1>
-  <p>This is the content for the New Test section.</p>
-</div>
-
-<div class="content-section" id="manage-tests-content" style="display:none;">
-  <h1>Manage Tests Section</h1>
-  <p>This is the content for the Manage Tests section.</p>
-</div>
-
-<div class="content-section" id="question-pools-content" style="display:none;">
-  <h1>Question Pools Section</h1>
-  <p>This is the content for the Question Pools section.</p>
-</div>
-
-<div class="content-section" id="grading-scales-content" style="display:none;">
-  <h1>Grading Scales Section</h1>
-  <p>This is the content for the Grading Scales section.</p>
-</div>
-
-<div class="content-section" id="submissions-content" style="display:none;">
-  <h1>Submissions Section</h1>
-  <p>This is the content for the Submissions section.</p>
-</div>
-
-<div class="content-section" id="dashboard-content" style="display:none;">
-  <h1>Dashboard Section</h1>
-  <p>This is the content for the Dashboard section.</p>
-</div>
-
-<div class="content-section" id="surveys-content" style="display:none;">
-  <h1>Surveys Section</h1>
-  <p>This is the content for the Surveys section.</p>
-</div>
-
-<div class="content-section" id="sign-out-content" style="display:none;">
-  <h1>Sign-out Section</h1>
-  <p>This is the content for the Sign-out section.</p>
-</div>
-
-    
-    <!-- Other content sections as needed -->
-  </div>    
-    <!-- Add more content sections as needed -->
+    <!-- START OF TEST SECTION - New Test -->
+    <div id="test" class="tabcontent"></div>
+    <!-- END OF TEST SECTION - New Test -->
   </div>
   <!-- Bootstrap JS and custom script -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="static\js\script.js"></script>
 </body>
