@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Educational Website</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #FAB2FF 10%, #1904E5 100%);
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+    .content {
+        text-align: center;
+        color: #fff;
+        z-index: 2;
+    }
+    .cta-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    .social-links {
+        margin-top: 30px;
+    }
+    .social-links a {
+        display: inline-block;
+        margin-right: 15px;
+        color: #fff;
+        font-size: 24px;
+        text-decoration: none;
+        transition: color 0.3s ease; /* Smooth color transition on hover */
+    }
+    .social-links a:hover {
+        color: #007bff; /* Blue color on Facebook hover */
+    }
+    .social-links a.instagram:hover {
+        color: #e4405f; /* Instagram color on Instagram hover */
+    }
+    .social-links a.twitter:hover {
+        color: #ffffff; /* White color on Twitter hover */
+    }
+    .social-links a.linkedin:hover {
+        color: #0077b5; /* LinkedIn color on LinkedIn hover */
+    }
+</style>
+</head>
+<body>
+    <video autoplay muted loop class="background-video">
+        <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay">
+        <div class="content">
+            <h1>Welcome to Your Educational Website</h1>
+            <p>Explore, Learn, Grow</p>
+            <a href="Ad_home.html" class="cta-button">Let's Get Started</a>
+            <div class="social-links">
+                <a href="#" target="_blank" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank" class="twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
