@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #FAB2FF 10%, #1904E5 100%);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 250px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .aside-profile {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .aside-profile img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .aside-profile a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .image-carousel {
+            position: relative;
+            margin-bottom: 20px;
+            width: 200px;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .interests {
+            margin-bottom: 20px;
+        }
+
+        .interests h2 {
+            margin-bottom: 10px;
+        }
+
+        .interests button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .interests button.selected {
+            background-color: green;
+        }
+
+        .interests button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="aside">
+        <div class="aside-profile">
+            <h2>Student Profile</h2>
+            <img src="assets\images\pofile.jpg" alt="Profile Picture">
+            <a href="#" id="change-profile">Change profile</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <div class="image-carousel" id="image-carousel">
+            <div class="carousel-images">
+                <img src="assets\images\b1.jpg" class="carousel-image" alt="Image 1">
+                <img src="assets\images\b2.jpg" class="carousel-image" alt="Image 2">
+                <img src="assets\images\b3.jpg" class="carousel-image" alt="Image 3">
+                <img src="assets\images\b4.jpg" class="carousel-image" alt="Image 4">
+                <img src="assets\images\b5.jpg" class="carousel-image" alt="Image 5">
+            </div>
+        </div>
+        <div class="interests">
+            <h2>Areas of Interest</h2>
+            <button onclick="selectInterest(this)">Math</button>
+            <button onclick="selectInterest(this)">Science</button>
+            <button onclick="selectInterest(this)">Sports</button>
+            <button onclick="selectInterest(this)">Music</button>
+            <button onclick="selectInterest(this)">Technology</button>
+            <button onclick="selectInterest(this)">Art</button>
+            <button onclick="selectInterest(this)">Literature</button>
+            <button onclick="selectInterest(this)">Cooking</button>
+            <button onclick="selectInterest(this)">History</button>
+            <!-- Add more interest buttons as needed -->
+        </div>
+    </div>
+    <div class="main">
+        <!-- Main content goes here -->
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel-image');
+        const carousel = document.getElementById('image-carousel');
+        const carouselImages = document.querySelector('.carousel-images');
+
+        function showImage(index) {
+            carouselImages.style.transform = `translateX(-${index * 100}%)`;
+            currentIndex = index;
+        }
+
+        function nextImage() {
+            currentIndex++;
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+            showImage(currentIndex);
+        }
+
+        setInterval(nextImage, 3000);
+
+        function selectInterest(button) {
+            button.classList.toggle('selected');
+        }
+
+        document.getElementById('change-profile').addEventListener('click', function (event) {
+            event.preventDefault();
+            // Logic to handle profile picture change
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
