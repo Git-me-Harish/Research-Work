@@ -1,179 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
+    <meta charset="utf-8">
+    <title>Education Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <style type="text/css">
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Playfair Display', serif;
             background: linear-gradient(135deg, #FAB2FF 10%, #1904E5 100%);
-            display: flex;
-            min-height: 100vh;
+            margin-top: 20px;
         }
-
-        .aside {
-            width: 250px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .aside-profile {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .aside-profile img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .aside-profile a {
-            display: block;
-            text-decoration: none;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .search-bar {
-            margin-bottom: 20px;
-        }
-
-        .image-carousel {
-            position: relative;
-            margin-bottom: 20px;
-            width: 200px;
-            height: 150px;
-            overflow: hidden;
-        }
-
-        .carousel-images {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-image {
-            width: 100%;
+        .ui-w-80 {
+            width: 80px !important;
             height: auto;
-            flex-shrink: 0;
         }
-
-        .interests {
-            margin-bottom: 20px;
+        .btn-default {
+            border-color: rgba(24, 28, 33, 0.1);
+            background: rgba(0, 0, 0, 0);
+            color: #4E5155;
         }
-
-        .interests h2 {
-            margin-bottom: 10px;
+        label.btn {
+            margin-bottom: 0;
         }
-
-        .interests button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            margin-right: 10px;
-            margin-bottom: 10px;
+        .btn-outline-primary {
+            border-color: #26B4FF;
+            background: transparent;
+            color: #26B4FF;
+        }
+        .btn {
             cursor: pointer;
         }
-
-        .interests button.selected {
-            background-color: green;
+        .text-light {
+            color: #babbbc !important;
         }
-
-        .interests button:hover {
-            background-color: #0056b3;
+        .btn-facebook {
+            border-color: rgba(0, 0, 0, 0);
+            background: #3B5998;
+            color: #fff;
+        }
+        .btn-instagram {
+            border-color: rgba(0, 0, 0, 0);
+            background: #000;
+            color: #fff;
+        }
+        .card {
+            background-clip: padding-box;
+            box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
+        }
+        .row-bordered {
+            overflow: hidden;
+        }
+        .account-settings-fileinput {
+            position: absolute;
+            visibility: hidden;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+        .account-settings-links .list-group-item.active {
+            font-weight: bold !important;
+        }
+        html:not(.dark-style) .account-settings-links .list-group-item.active {
+            background: transparent !important;
+        }
+        .account-settings-multiselect ~ .select2-container {
+            width: 100% !important;
+        }
+        .light-style .account-settings-links .list-group-item,
+        .material-style .account-settings-links .list-group-item,
+        .dark-style .account-settings-links .list-group-item {
+            padding: 0.85rem 1.5rem;
+            border-color: rgba(24, 28, 33, 0.03) !important;
+        }
+        .light-style .account-settings-links .list-group-item.active,
+        .material-style .account-settings-links .list-group-item.active,
+        .dark-style .account-settings-links .list-group-item.active {
+            color: #4e5155 !important;
+        }
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .subfield-label {
+            font-weight: bold;
+        }
+        .subfield-input {
+            margin-bottom: 10px;
         }
     </style>
-</head>
+      
+    <div class="container light-style flex-grow-1 container-p-y">
+        <h4 class="font-weight-bold py-3 mb-4">
+            Education Platform
+        </h4>
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div class="list-group list-group-flush account-settings-links">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#general-info">General Information</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#academic-progress">Academic Progress</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#edu-resources">Educational Resources</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#personal-dev">Personal Development</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#social-interaction">Social Interaction</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="general-info">
+                            <div class="card-body media align-items-center">
+                                <!-- Profile Picture -->
+                                <div class="form-group text-center">
+                                    <label class="subfield-label">Profile Picture</label>
+                                    <input type="file" class="form-control-file account-settings-fileinput" id="profile-picture-input">
+                                    <!-- Placeholder for displaying the current profile picture -->
+                                    <img src="path_to_profile_picture" alt="Profile Picture" class="mt-2 ui-w-80">
+                                </div>
+                        
+                                <!-- User Details -->
+                                <div class="form-group">
+                                    <label class="subfield-label" for="username-input">Username</label>
+                                    <input type="text" class="form-control subfield-input" id="username-input" value="nmaxwell">
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="subfield-label" for="full-name-input">Full Name</label>
+                                    <input type="text" class="form-control subfield-input" id="full-name-input" value="Nelle Maxwell">
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="subfield-label" for="email-input">Email</label>
+                                    <input type="email" class="form-control subfield-input" id="email-input" value="nmaxwell@mail.com" readonly>
+                                    <div class="alert alert-warning mt-3">
+                                        Your email is not confirmed. Please check your inbox.<br>
+                                        <a href="javascript:void(0)">Resend confirmation</a>
+                                    </div>
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="subfield-label" for="school-input">School/College</label>
+                                    <input type="text" class="form-control subfield-input" id="school-input" value="Company Ltd.">
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="subfield-label" for="grade-input">Grade/Level</label>
+                                    <select class="form-control subfield-input" id="grade-input">
+                                        <option>1st Grade</option>
+                                        <option selected>2nd Grade</option>
+                                        <option>3rd Grade</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+                        
+                                <!-- Additional Details -->
+                                <div class="form-group">
+                                    <label class="subfield-label" for="phone-input">Phone Number</label>
+                                    <input type="tel" class="form-control subfield-input" id="phone-input" value="+1 234 567 890">
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="subfield-label" for="bio-input">Bio</label>
+                                    <textarea class="form-control subfield-input" id="bio-input" rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="subfield-label" for="website-input">Website</label>
+                                    <input type="text" class="form-control subfield-input" id="website-input" value="https://example.com">
+                                </div>
+                            </div>
+                        </div>                                
+                        <!-- Academic Progress Section -->
+<div class="tab-pane fade" id="academic-progress">
+    <div class="card-body pb-2">
+        <!-- Content as per Academic Progress -->
+        <!-- Courses Enrolled -->
+        <h5 class="mb-3">Courses Enrolled</h5>
+        <div class="course-list">
+            <!-- Courses will be dynamically generated here -->
+        </div>
+        <hr>
+        <!-- Test Scores -->
+        <h5 class="mb-3">Test Scores</h5>
+        <div class="test-scores">
+            <!-- Test scores will be dynamically generated here -->
+        </div>
+        <hr>
+        <!-- Progress Overview -->
+        <h5 class="mb-3">Progress Overview</h5>
+        <div class="progress-overview">
+            <canvas id="progress-chart"></canvas>
+            <!-- Progress chart will be dynamically generated here -->
+        </div>
+        <hr>
+        <!-- Certificates/Achievements -->
+        <h5 class="mb-3">Certificates/Achievements</h5>
+        <div class="achievements">
+            <!-- Certificates and achievements will be dynamically generated here -->
+        </div>
+        <!-- Add more dynamic elements as needed -->
+    </div>
+</div>
 
-<body>
-    <div class="aside">
-        <div class="aside-profile">
-            <h2>Student Profile</h2>
-            <img src="assets\images\pofile.jpg" alt="Profile Picture">
-            <a href="#" id="change-profile">Change profile</a>
+                        <!-- Educational Resources Section -->
+<div class="tab-pane fade" id="edu-resources">
+    <div class="card-body pb-2">
+        <!-- Content as per Educational Resources -->
+        <!-- Course Materials -->
+        <h5 class="mb-3">Course Materials</h5>
+        <div class="course-materials">
+            <!-- Course materials will be dynamically generated here -->
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
+        <hr>
+        <!-- Video Lectures -->
+        <h5 class="mb-3">Video Lectures</h5>
+        <div class="video-lectures">
+            <!-- Video lectures will be dynamically generated here -->
         </div>
-        <div class="image-carousel" id="image-carousel">
-            <div class="carousel-images">
-                <img src="assets\images\b1.jpg" class="carousel-image" alt="Image 1">
-                <img src="assets\images\b2.jpg" class="carousel-image" alt="Image 2">
-                <img src="assets\images\b3.jpg" class="carousel-image" alt="Image 3">
-                <img src="assets\images\b4.jpg" class="carousel-image" alt="Image 4">
-                <img src="assets\images\b5.jpg" class="carousel-image" alt="Image 5">
+        <hr>
+        <!-- Assignments -->
+        <h5 class="mb-3">Assignments</h5>
+        <div class="assignments">
+            <!-- Assignments will be dynamically generated here -->
+        </div>
+        <hr>
+        <!-- Discussion Forums -->
+        <h5 class="mb-3">Discussion Forums</h5>
+        <div class="discussion-forums">
+            <!-- Discussion forums will be dynamically generated here -->
+        </div>
+        <!-- Add more dynamic elements as needed -->
+    </div>
+</div>
+                        <!-- Personal Development Section -->
+<div class="tab-pane fade" id="personal-dev">
+    <div class="card-body pb-2">
+        <!-- Career Interests -->
+        <div class="section">
+            <h3>Career Interests</h3>
+            <p>Specify your career interests or aspirations:</p>
+            <div class="form-group">
+                <label for="career-interests">Select your career interests:</label>
+                <select class="form-control" id="career-interests">
+                    <!-- Options will be added dynamically -->
+                </select>
+            </div>
+            <p>Provide options for selecting industries, job roles, or fields of interest:</p>
+            <!-- Include icons or badges for visual appeal -->
+            <div class="industry-options" id="industry-options">
+                <!-- Badges will be added dynamically -->
+            </div>
+            <p>Offer personalized recommendations based on selected career interests:</p>
+            <!-- Use JavaScript to fetch and display personalized recommendations -->
+            <div id="personalized-recommendations">
+                <!-- Dynamic content will be loaded here -->
             </div>
         </div>
-        <div class="interests">
-            <h2>Areas of Interest</h2>
-            <button onclick="selectInterest(this)">Math</button>
-            <button onclick="selectInterest(this)">Science</button>
-            <button onclick="selectInterest(this)">Sports</button>
-            <button onclick="selectInterest(this)">Music</button>
-            <button onclick="selectInterest(this)">Technology</button>
-            <button onclick="selectInterest(this)">Art</button>
-            <button onclick="selectInterest(this)">Literature</button>
-            <button onclick="selectInterest(this)">Cooking</button>
-            <button onclick="selectInterest(this)">History</button>
-            <!-- Add more interest buttons as needed -->
+        <!-- Skills Development -->
+        <div class="section">
+            <h3>Skills Development</h3>
+            <p>Explore resources, tutorials, or courses for skill development:</p>
+            <!-- Display courses or resources based on selected skills -->
+            <div id="skills-courses">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <p>Take skill assessments or quizzes to identify areas for improvement:</p>
+            <!-- Include interactive quizzes or assessments -->
+            <div id="skill-assessments">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <p>Earn certifications or badges upon completing skill modules:</p>
+            <!-- Display earned badges or certifications -->
+            <div id="earned-certifications">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+        <!-- Personal Projects -->
+        <div class="section">
+            <h3>Personal Projects</h3>
+            <p>Showcase your projects related to your field of study or interests:</p>
+            <!-- Form for uploading project details -->
+            <form id="project-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="project-title">Project Title:</label>
+                    <input type="text" class="form-control" id="project-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Project Description:</label>
+                    <textarea class="form-control" id="project-description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-file">Upload Project File:</label>
+                    <input type="file" class="form-control-file" id="project-file" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Project</button>
+            </form>
+            <!-- Display projects dynamically -->
+            <div id="project-gallery">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+        <!-- Career Guidance -->
+        <div class="section">
+            <h3>Career Guidance</h3>
+            <p>Access articles, tips, and best practices for career development:</p>
+            <!-- Display career resources dynamically -->
+            <div id="career-resources">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <p>Join career webinars, workshops, or mentorship programs:</p>
+            <!-- Display career events dynamically -->
+            <div id="career-events">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <p>Read success stories or testimonials from industry professionals:</p>
+            <!-- Display success stories dynamically -->
+            <div id="success-stories">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+        <!-- Networking Opportunities -->
+        <div class="section">
+            <h3>Networking Opportunities</h3>
+            <p>Connect with peers, join discussions, and seek mentorship:</p>
+            <!-- Display networking features dynamically -->
+            <div id="networking-features">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+        <!-- Goal Setting and Tracking -->
+        <div class="section">
+            <h3>Goal Setting and Tracking</h3>
+            <p>Set career goals, track progress, and receive notifications:</p>
+            <!-- Goal setting form -->
+            <form id="goal-form">
+                <label for="goal-name">Goal Name:</label>
+                <input type="text" id="goal-name" required>
+                <label for="goal-progress">Progress (%):</label>
+                <input type="number" id="goal-progress" min="0" max="100" required>
+                <button type="submit">Set Goal</button>
+            </form>
+            <div id="goal-list">
+                <!-- Dynamic content will be loaded here -->
+            </div>
         </div>
     </div>
-    <div class="main">
-        <!-- Main content goes here -->
+</div>
+
+                        <!-- Social Interaction Section -->
+<div class="tab-pane fade" id="social-interaction">
+    <div class="card-body pb-2">
+        <!-- Content for Social Interaction -->
+        <div class="section">
+            <h3>Social Interaction</h3>
+            <p>Welcome to our vibrant community!</p>
+
+            <!-- Peer Networking -->
+            <div class="networking-section">
+                <h4>Peer Networking</h4>
+                <p>Connect with peers and form study groups:</p>
+                <div class="networking-options">
+                    <div class="networking-item">
+                        <img src="assets\images\study.avif" alt="Study Group 1">
+                        <p>Study Group 1</p>
+                        <button class="btn btn-primary">Join Group</button>
+                    </div>
+                    <div class="networking-item">
+                        <img src="assets\images\study-2.avif" alt="Study Group 2">
+                        <p>Study Group 2</p>
+                        <button class="btn btn-primary">Join Group</button>
+                    </div>
+                    <!-- Add more networking options -->
+                </div>
+            </div>
+            <!-- Mentorship Opportunities -->
+            <div class="mentorship-section">
+                <h4>Mentorship Opportunities</h4>
+                <p>Explore mentorship programs and connect with mentors:</p>
+                <div class="mentorship-options">
+                    <div class="mentorship-item">
+                        <img src="assets\images\mentor-2.png" alt="Mentor 1">
+                        <p>Mentor Name 1</p>
+                        <button class="btn btn-primary">Connect</button>
+                    </div>
+                    <div class="mentorship-item">
+                        <img src="assets\images\mentor.avif" alt="Mentor 2">
+                        <p>Mentor Name 2</p>
+                        <button class="btn btn-primary">Connect</button>
+                    </div>
+                    <!-- Add more mentorship options -->
+                </div>
+            </div>
+
+            <!-- Events and Webinars -->
+            <div class="events-section">
+                <h4>Events and Webinars</h4>
+                <p>Stay updated with upcoming events and webinars:</p>
+                <div class="event-item">
+                    <img src="assets\images\event.avif" alt="Event 1">
+                    <div class="event-details">
+                        <h5>Event Name 1</h5>
+                        <p>Date: April 30, 2024</p>
+                        <button class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <img src="assets\images\event-2.avif" alt="Event 2">
+                    <div class="event-details">
+                        <h5>Event Name 2</h5>
+                        <p>Date: May 5, 2024</p>
+                        <button class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+                <!-- Add more event items -->
+            </div>
+        </div>
     </div>
+</div>
 
-    <script>
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.carousel-image');
-        const carousel = document.getElementById('image-carousel');
-        const carouselImages = document.querySelector('.carousel-images');
-
-        function showImage(index) {
-            carouselImages.style.transform = `translateX(-${index * 100}%)`;
-            currentIndex = index;
-        }
-
-        function nextImage() {
-            currentIndex++;
-            if (currentIndex >= images.length) {
-                currentIndex = 0;
-            }
-            showImage(currentIndex);
-        }
-
-        setInterval(nextImage, 3000);
-
-        function selectInterest(button) {
-            button.classList.toggle('selected');
-        }
-
-        document.getElementById('change-profile').addEventListener('click', function (event) {
-            event.preventDefault();
-            // Logic to handle profile picture change
-        });
+                        <!-- Change Password Section -->
+<div class="tab-pane fade" id="account-change-password">
+    <div class="card-body">
+        <!-- Content for Change Password -->
+        <h3>Change Password</h3>
+        <form id="change-password-form">
+            <!-- Current Password -->
+            <div class="form-group">
+                <label for="current-password">Current Password:</label>
+                <input type="password" class="form-control" id="current-password" required>
+            </div>
+            <!-- New Password -->
+            <div class="form-group">
+                <label for="new-password">New Password:</label>
+                <input type="password" class="form-control" id="new-password" required>
+            </div>
+            <!-- Confirm New Password -->
+            <div class="form-group">
+                <label for="confirm-password">Confirm New Password:</label>
+                <input type="password" class="form-control" id="confirm-password" required>
+            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+    </div>
+</div>
+<div class="text-right mt-3">
+    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
+    <button type="button" class="btn btn-default">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="static\js\St_profile.js"></script>
+    <script type="text/javascript">
+        // Additional JavaScript can be added here if needed
     </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
