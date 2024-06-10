@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="#">
+</head>
+<body>
+  <style>
+    /* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.leaderboard-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Styles */
+#search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#search-input {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+#search-button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#search-button:hover {
+  background-color: #0056b3;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody td a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+tbody td a:hover {
+  text-decoration: underline;
+}
+
+/* Pagination Styles */
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#pagination button {
+  padding: 10px 20px;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 5px;
+}
+
+#pagination button:hover {
+  background-color: #0056b3;
+}
+
+#pagination #current-page {
+  margin: 0 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  #search-input {
+      width: 200px;
+  }
+
+  table, thead, tbody, th, td, tr {
+      display: block;
+  }
+
+  thead {
+      display: none;
+  }
+
+  tbody tr {
+      margin-bottom: 15px;
+  }
+
+  tbody td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+  }
+
+  tbody td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+  }
+}
+  </style>
+    <div class="leaderboard-container">
+        <h1>Leaderboard</h1>
+        <form id="search-form">
+            <input type="search" id="search-input" placeholder="Search by username">
+            <button type="button" id="search-button">Search</button>
+        </form>
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Subject</th>
+                    <th>Total Score</th>
+                    <th>Highest Score</th>
+                    <th>Average Score</th>
+                    <th>Number of Quizzes/Tests Taken</th>
+                    <th>Correct Answers</th>
+                    <th>Incorrect Answers</th>
+                    <th>Quiz/Test Name</th>
+                    <th>Date Taken</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- leaderboard data will be populated here -->
+            </tbody>
+        </table>
+        <div id="pagination">
+            <button id="previous-page">Previous</button>
+            <button id="next-page">Next</button>
+            <span id="current-page">Page 1 of 10</span>
+        </div>
+    </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+    const leaderboardTableBody = document.getElementById('leaderboard-body');
+    const previousPageButton = document.getElementById('previous-page');
+    const nextPageButton = document.getElementById('next-page');
+    const currentPageSpan = document.getElementById('current-page');
+    
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    // Function to fetch leaderboard data from the server
+    function fetchLeaderboard(query = '', page = 1) {
+        fetch(`fetch_leaderboard.php?search=${query}&page=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                populateLeaderboard(data.users);
+                updatePagination(data.totalPages, page);
+            })
+            .catch(error => console.error('Error fetching leaderboard data:', error));
+    }
+
+    // Function to populate leaderboard with fetched data
+    function populateLeaderboard(users) {
+        leaderboardTableBody.innerHTML = '';
+
+        users.forEach((user, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td data-label="Rank">${user.rank}</td>
+                <td data-label="Username">${user.username}</td>
+                <td data-label="Subject">${user.subject}</td>
+                <td data-label="Total Score">${user.total_score}</td>
+                <td data-label="Highest Score">${user.highest_score}</td>
+                <td data-label="Average Score">${user.average_score}</td>
+                <td data-label="Number of Quizzes/Tests Taken">${user.quizzes_taken}</td>
+                <td data-label="Correct Answers">${user.correct_answers}</td>
+                <td data-label="Incorrect Answers">${user.incorrect_answers}</td>
+                <td data-label="Quiz/Test Name">${user.quiz_name}</td>
+                <td data-label="Date Taken">${user.date_taken}</td>
+                <td data-label="Actions"><a href="user_profile.php?id=${user.id}">View Profile</a></td>
+            `;
+            leaderboardTableBody.appendChild(row);
+        });
+    }
+
+    // Function to update pagination controls
+    function updatePagination(totalPages, page) {
+        currentPageSpan.textContent = `Page ${page} of ${totalPages}`;
+        previousPageButton.disabled = page === 1;
+        nextPageButton.disabled = page === totalPages;
+    }
+
+    // Event listeners for search form and pagination buttons
+    searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const query = searchInput.value;
+        currentPage = 1;
+        fetchLeaderboard(query, currentPage);
+    });
+
+    previousPageButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchLeaderboard(searchInput.value, currentPage);
+        }
+    });
+
+    nextPageButton.addEventListener('click', () => {
+        currentPage++;
+        fetchLeaderboard(searchInput.value, currentPage);
+    });
+
+    // Initial fetch of leaderboard data
+    fetchLeaderboard();
+});
+</script>  
+    <script src="#"></script>
+</body>
+</html>
+
+<!--PHP CODE 
+
+<?php
+header('Content-Type: application/json');
+
+// Database connection
+$servername = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_database";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode(['error' => 'Database connection failed']));
+}
+
+// Get parameters from request
+$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$rowsPerPage = 10;
+$offset = ($page - 1) * $rowsPerPage;
+
+// Build SQL query with search and pagination
+$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM leaderboard WHERE username LIKE '%$search%' LIMIT $offset, $rowsPerPage";
+$result = $conn->query($sql);
+
+// Get the total number of rows for pagination
+$totalRowsResult = $conn->query("SELECT FOUND_ROWS() as totalRows");
+$totalRows = $totalRowsResult->fetch_assoc()['totalRows'];
+$totalPages = ceil($totalRows / $rowsPerPage);
+
+if ($result->num_rows > 0) {
+    $users = [];
+    while ($row = $result->fetch_assoc()) {
+        $users[] = [
+            'rank' => $row['rank'],
+            'username' => $row['username'],
+            'subject' => $row['subject'],
+            'total_score' => $row['total_score'],
+            'highest_score' => $row['highest_score'],
+            'average_score' => $row['average_score'],
+            'quizzes_taken' => $row['quizzes_taken'],
+            'correct_answers' => $row['correct_answers'],
+            'incorrect_answers' => $row['incorrect_answers'],
+            'quiz_name' => $row['quiz_name'],
+            'date_taken' => $row['date_taken'],
+            'id' => $row['id']
+        ];
+    }
+    echo json_encode(['users' => $users, 'totalPages' => $totalPages]);
+} else {
+    echo json_encode(['users' => [], 'totalPages' => 0]);
+}
+
+$conn->close();
+?>
+
+-->
+
+<!--SQL Query for the Table -->
+<!--CREATE TABLE leaderboard (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rank INT NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    total_score INT NOT NULL,
+    highest_score INT NOT NULL,
+    average_score FLOAT NOT NULL,
+    quizzes_taken INT NOT NULL,
+    correct_answers INT NOT NULL,
+    incorrect_answers INT NOT NULL,
+    quiz_name VARCHAR(255) NOT NULL,
+    date_taken DATE NOT NULL
+);
+-->
